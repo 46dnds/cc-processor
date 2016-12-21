@@ -166,7 +166,7 @@ P			= {
 			if(opts)
 				P.cfg=xtend.extend(P.cfg,opts);
 			if(P.cfg.debug)
-				console.log('Config set',JSON.stringify(P.cfg,undefined,4));
+				console.log('cc-Processor init Config set',JSON.stringify(P.cfg,undefined,4));
 
 			for(var i in gws){
 				if(gws[i]){
@@ -177,10 +177,10 @@ P			= {
 					};
 					gws[i].pathExists=_P.pathExists;
 					gws[i].sortObject=_P.sortObject;
-					gws[i].init(opts);
+					gws[i].init(P.cfg);
 				}
 			}
-			cback();
+			if(cback) cback();
 		});
     },
     doTx:function(vars,cback){
