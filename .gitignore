@@ -1,0 +1,32 @@
+# nodes modules
+node_modules
+
+var/cache/*
+dump.rdb
+
+*.SyncOld
+.merge_file
+
+# Logs
+logs
+*.log
+_etc/configOverride.json
+_etc/configs/*
+
+tests/*
+
+# Git files
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*.orig
+
+# Komodo documents
+*.komodoproject
+
+# Materiel and development files
+*.ai
+*.eps
+*.psd
+_private

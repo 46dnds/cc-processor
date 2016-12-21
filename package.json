@@ -1,0 +1,20 @@
+{
+  "name": "cc-processor",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TechnoSolutionsCL credit cards processing module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloneextend": "0.0.3",
+    "creditcard": "^0.1.2",
+    "getmac": "^1.2.1",
+    "node-uuid": "^1.4.7",
+    "request": "^2.75.0",
+    "xml2js": "^0.4.17"
+  }
+}
