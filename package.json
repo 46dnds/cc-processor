@@ -1,11 +1,15 @@
 {
   "name": "cc-processor",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "description": "TechnoSolutionsCL credit cards processing module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/technosolutionscl/cc-processor"
   },
   "author": "",
   "license": "ISC",
