@@ -11,7 +11,7 @@ xml2js  	= require('xml2js'),
 nodeid 		= [],
 _P			= {
 	answer	: function(vars,res,cback){
-		res=res.data;
+		res=res.data || res;
 		if(vars.type=='PA'){
 			res.last4		= vars.fields.card.number.substr(-4);
 			res.cardType	= vars.fields.card.ccd.scheme.toLowerCase();
@@ -184,7 +184,7 @@ P			= {
 		});
     },
     doTx:function(vars,cback){
-		if(!vars.cfg || !vars.credentials){
+		if(!vars.cfg || !vars.cfg.credentials){
 			_P.answer(vars,{
 				result	: 'error',
 				code	: 51,
@@ -192,11 +192,13 @@ P			= {
 			},cback);
 			return;
 		}
+		if(vars.cfg.debug)
+			console.log('doTx vars.fields',vars.fields);
 		vars.fields=xtend.clone(vars.fields);
 		if(_P.pathExists(vars,'fields.card.number'))
-			vars.fields.card.number=vars.fields.card.number.replace(/[^0-9]/g,'');
+			vars.fields.card.number=(vars.fields.card.number+'').replace(/[^0-9]/g,'');
 
-		if(vars.type=='PA'){
+		if(vars.type=='PA' || vars.type=='CHECK'){
 			vars.fields.card.ccd=cc.parse(vars.fields.card.number);
 			if(!vars.fields.card.ccd.validates){
 				_P.answer(vars,{
@@ -236,13 +238,24 @@ P			= {
 			vars.fields.cardType	= vars.fields.card.ccd.scheme.toLowerCase();
 		}
 		//let's do it
-		gws[vars.cfg.gateway].doTx(vars,function(res){
-			if(typeof res.data=='undefined')
-				res.data = {};
-			res.data.type=vars.type;
-			res.data.runTime=(new Date().getTime()-start)/1000;
-			_P.answer(vars,res,cback);
-		});
+		try{
+			gws[vars.cfg.gateway].doTx(vars,function(res){
+				if(typeof res.data=='undefined')
+					res.data = {};
+				res.data.type=vars.type;
+				res.data.runTime=(new Date().getTime()-start)/1000;
+				_P.answer(vars,res,cback);
+			});
+		}
+		catch(e){
+
+			_P.answer(vars,{
+				result	: 'error',
+				code	: 500,
+				message	: e
+			},cback);
+			return;
+		}
     }
 };
 module.exports=P;
