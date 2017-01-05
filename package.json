@@ -1,7 +1,7 @@
 {
   "name": "cc-processor",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "TechnoSolutionsCL credit cards processing module",
   "main": "index.js",
   "scripts": {
