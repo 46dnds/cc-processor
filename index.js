@@ -12,7 +12,7 @@ nodeid 		= [],
 _P			= {
 	answer	: function(vars,res,cback){
 		res=res.data || res;
-		if(vars.type=='PA'){
+		if(vars.type=='S' || vars.type=='PA' || vars.type=='CHECK'){
 			res.last4		= vars.fields.card.number.substr(-4);
 			res.cardType	= vars.fields.card.ccd.scheme.toLowerCase();
 		}
@@ -198,6 +198,8 @@ P			= {
 		if(_P.pathExists(vars,'fields.card.number'))
 			vars.fields.card.number=(vars.fields.card.number+'').replace(/[^0-9]/g,'');
 
+		vars.fields.id=_P.uuid.get();
+		var start=new Date().getTime();
 		if(vars.type=='S' || vars.type=='PA' || vars.type=='CHECK'){
 			vars.fields.card.ccd=cc.parse(vars.fields.card.number);
 			if(!vars.fields.card.ccd.validates){
@@ -228,12 +230,6 @@ P			= {
 				},cback);
 				return;
 			}
-		}
-
-		vars.fields.id=_P.uuid.get();
-		var start=new Date().getTime();
-
-		if(vars.type=='PA' || vars.type=='S'){
 			vars.fields.last4		= vars.fields.card.number.substr(-4);
 			vars.fields.cardType	= vars.fields.card.ccd.scheme.toLowerCase();
 		}
